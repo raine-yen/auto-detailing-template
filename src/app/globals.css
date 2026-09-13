@@ -1,0 +1,334 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800&display=swap");
+
+@import "tailwindcss";
+
+@theme {
+  --color-charcoal: #0f172a;
+  --color-charcoal-light: #1e293b;
+  --color-gold: #d4a053;
+  --color-gold-hover: #c4913f;
+  --color-white: #ffffff;
+  --color-gray-50: #f8fafc;
+  --color-gray-100: #e2e8f0;
+  --color-gray-200: #cbd5e1;
+  --color-gray-300: #94a3b8;
+  --color-gray-400: #64748b;
+  --color-gray-500: #475569;
+  --color-gray-600: #334155;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
+
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+}
+
+/* ==========================================================================
+   Base styles
+   ========================================================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-charcoal);
+  background-color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
+
+/* ==========================================================================
+   Tailwind v4 custom utilities (replacing v3 @apply patterns)
+   ========================================================================== */
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  background-color: #d4a053;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.2s;
+}
+.btn-primary:hover {
+  background-color: #c4913f;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+.btn-primary:active {
+  transform: scale(0.98);
+}
+.btn-primary:focus-visible {
+  outline: none;
+  ring: 2px;
+  --tw-ring-color: #d4a053;
+  --tw-ring-offset-width: 2px;
+  --tw-ring-offset-color: white;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: 2px solid white;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.2s;
+}
+.btn-secondary:hover {
+  background-color: white;
+  color: #0f172a;
+}
+.btn-secondary:active {
+  transform: scale(0.98);
+}
+.btn-secondary:focus-visible {
+  outline: none;
+  ring: 2px;
+  --tw-ring-color: white;
+  --tw-ring-offset-width: 2px;
+  --tw-ring-offset-color: white;
+}
+
+.btn-outline-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: 2px solid #d4a053;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  color: #d4a053;
+  transition: all 0.2s;
+}
+.btn-outline-gold:hover {
+  background-color: #d4a053;
+  color: white;
+}
+.btn-outline-gold:active {
+  transform: scale(0.98);
+}
+
+/* Section helpers */
+.section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  .section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+.section-dark {
+  background-color: #0f172a;
+  color: white;
+}
+.section-dark .section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  .section-dark .section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+.section-light {
+  background-color: #f8fafc;
+}
+.section-light .section {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+@media (min-width: 768px) {
+  .section-light .section {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
+}
+
+/* Cards */
+.card {
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  transition: box-shadow 0.2s;
+}
+.card:hover {
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+}
+
+/* Service card hover lift */
+.service-card {
+  border-radius: 0.75rem;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  padding: 1.5rem;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  transition: box-shadow 0.2s, transform 0.3s;
+}
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+/* Star ratings */
+.stars {
+  display: inline-flex;
+  gap: 0.125rem;
+}
+
+.star-filled {
+  color: #d4a053;
+}
+
+.star-empty {
+  color: #e2e8f0;
+}
+
+/* Mobile CTA */
+.mobile-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-top: 1px solid #e2e8f0;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 0.75rem 1rem;
+  backdrop-filter: blur(4px);
+}
+@media (min-width: 768px) {
+  .mobile-cta {
+    display: none;
+  }
+}
+
+/* Before/After slider */
+.ba-slider {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.75rem;
+}
+.ba-slider-image {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+
+/* Accordion */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+}
+.accordion-content.open {
+  max-height: 30rem;
+}
+
+/* Footer */
+.footer {
+  background-color: #0f172a;
+  color: #94a3b8;
+}
+.footer a:hover {
+  color: #d4a053;
+}
+
+/* Navigation links */
+.nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #94a3b8;
+  transition: color 0.2s;
+}
+.nav-link:hover {
+  color: #d4a053;
+}
+@media (min-width: 768px) {
+  .nav-link {
+    font-size: 1rem;
+  }
+}
+
+.nav-link-active {
+  color: #d4a053;
+}
+
+/* Header */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(8px);
+}
+
+.logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+}
+@media (min-width: 768px) {
+  .logo-text {
+    font-size: 1.5rem;
+  }
+}
+
+.logo-accent {
+  color: #d4a053;
+}
+
+/* Hero overlay */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.5), rgba(15, 23, 42, 0.8));
+}
+
+/* Form styles */
+.form-input {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid #e2e8f0;
+  background-color: white;
+  padding: 0.75rem 1rem;
+  color: #0f172a;
+}
+.form-input::placeholder {
+  color: #64748b;
+}
+.form-input:focus {
+  border-color: #d4a053;
+  outline: none;
+  --tw-ring-color: #d4a053;
+  --tw-ring-width: 1px;
+}
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #475569;
+}
