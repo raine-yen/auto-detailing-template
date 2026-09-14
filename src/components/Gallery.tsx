@@ -43,16 +43,16 @@ const galleryItems = [
     title: "SUV Detail — Truck",
     description: "Full detail on a work truck",
     // Muddy vs clean truck
-    before: "https://images.unsplash.com/photo-1519641471654-76ce02073e30?w=800&h=500&fit=crop&q=70&auto=format&saturation=-25&brightness=-10",
+    before: "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800&h=500&fit=crop&q=70&auto=format&saturation=-25&brightness=-10",
     after: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=500&fit=crop&q=85",
   },
   {
     id: 6,
     title: "Wash & Wax Special",
     description: "Quick exterior refresh — wash, clay, wax",
-    // Dull blue vs shiny blue
-    before: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&h=500&fit=crop&q=70&auto=format&saturation=-15&brightness=-5",
-    after: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop&q=85&auto=format&saturation=+10",
+    // Blue car — different before vs after
+    before: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop&q=70&auto=format&saturation=-20&brightness=-8",
+    after: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&h=500&fit=crop&q=85&auto=format&saturation=+10",
   },
 ];
 
