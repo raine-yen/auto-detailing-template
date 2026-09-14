@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "./globals.css";
 import { business, socialLinks } from "@/lib/data";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
