@@ -1,5 +1,7 @@
 "use client";
 
+import { business } from "@/lib/data";
+
 // SVG icons for Mobile CTA buttons
 const PhoneIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -17,14 +19,14 @@ export default function MobileCTA() {
   return (
     <div className="mobile-cta">
       <a
-        href="tel:+18005553328"
+        href={`tel:${business.phoneLink}`}
         className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#d4a053] py-3 text-sm font-semibold text-white transition-colors hover:bg-[#c4913f]"
       >
         <PhoneIcon />
         Call
       </a>
       <a
-        href="sms:+18005553328"
+        href={`sms:${business.phoneLink}`}
         className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-charcoal py-3 text-sm font-semibold text-white transition-colors hover:bg-charcoal-light"
       >
         <MessageIcon />

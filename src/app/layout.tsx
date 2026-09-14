@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { business, socialLinks } from "@/lib/data";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Services from "@/components/Services";
@@ -10,55 +10,59 @@ import FAQ from "@/components/FAQ";
 import ContactForm from "@/components/ContactForm";
 import MobileCTA from "@/components/MobileCTA";
 import Footer from "@/components/Footer";
-import { business } from "@/lib/data";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://premierautodetailing.com"),
+  metadataBase: new URL("https://pepesmobiledetail.com"),
   title: {
-    default: `${business.name} — Premium Auto Detailing in Los Angeles`,
+    default: `${business.name} — Mobile Auto Detailing in Livermore, CA`,
     template: `%s | ${business.name}`,
   },
   description:
-    "Professional auto detailing services in Los Angeles. Full interior/exterior detailing, ceramic coating, paint correction, and fleet services. Get a free quote today.",
+    `Pepe's Mobile Detail — Livermore, CA's top-rated mobile auto detailing service. 5.0★ on Yelp (117 reviews). We come to you for interior, exterior, full detail, and ceramic coating. Serving the Tri-Valley. Call ${business.phone}.`,
   keywords: [
-    "auto detailing",
-    "car detailing",
-    "ceramic coating",
-    "paint correction",
-    "car wash",
-    "interior detailing",
-    "Los Angeles",
     "mobile detailing",
-    "fleet detailing",
-    "Premier Auto Detailing",
+    "car detailing",
+    "auto detailing Livermore",
+    "ceramic coating Livermore",
+    "mobile car wash",
+    "interior detailing",
+    "exterior detailing",
+    "Tri-Valley",
+    "Pleasanton",
+    "Dublin",
+    "San Ramon",
+    "Pepe's Mobile Detail",
+    "Andrew Carrier",
+    "Tesla detailing Livermore",
+    "boat detailing",
+    "RV detailing",
   ],
   robots: "index, follow",
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: business.name,
-    title: `${business.name} — Premium Auto Detailing`,
+    title: `${business.name} — Mobile Auto Detailing in Livermore`,
     description:
-      "Expert auto detailing services — from a quick wash to ceramic coating. Showroom results, every time.",
-    url: "https://premierautodetailing.com",
+      `Livermore's top-rated mobile detailing. 117 five-star reviews. We come to you — cars, trucks, boats, RVs. Call ${business.phone}.`,
+    url: "https://pepesmobiledetail.com",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: `${business.name} — Premium Auto Detailing`,
+        alt: `${business.name} — Mobile Auto Detailing in Livermore, CA`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@premierdetail",
-    title: `${business.name} — Premium Auto Detailing`,
+    title: `${business.name} — Mobile Auto Detailing in Livermore`,
     description:
-      "Expert auto detailing services — from a quick wash to ceramic coating.",
+      "Livermore's #1 rated mobile detailing. 117 five-star Yelp reviews. We come to you.",
   },
   alternates: {
-    canonical: "https://premierautodetailing.com",
+    canonical: "https://pepesmobiledetail.com",
   },
 };
 
@@ -68,22 +72,22 @@ const jsonLd = {
   "@type": "LocalBusiness",
   name: business.name,
   description:
-    "Professional auto detailing services in Los Angeles offering full interior/exterior detailing, ceramic coating, paint correction, and fleet services.",
-  url: "https://premierautodetailing.com",
-  telephone: business.phone,
+    `Mobile auto detailing in Livermore, CA. Interior, exterior, full detail, ceramic coating. Serving Tri-Valley: Livermore, Pleasanton, Dublin, San Ramon, Alamo, Danville.`,
+  url: "https://pepesmobiledetail.com",
+  telephone: business.phoneLink,
   email: business.email,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "1234 Shine Boulevard, Suite 100",
-    addressLocality: "Los Angeles",
+    streetAddress: "898 Herman Ave",
+    addressLocality: "Livermore",
     addressRegion: "CA",
-    postalCode: "90001",
+    postalCode: "94551",
     addressCountry: "US",
   },
   geo: {
     "@type": "GeoCoordinates",
-    latitude: 34.0522,
-    longitude: -118.2437,
+    latitude: 37.6879,
+    longitude: -121.7682,
   },
   openingHoursSpecification: [
     {
@@ -95,7 +99,7 @@ const jsonLd = {
         "Thursday",
         "Friday",
       ],
-      opens: "07:00",
+      opens: "08:00",
       closes: "18:00",
     },
     {
@@ -104,19 +108,20 @@ const jsonLd = {
       opens: "08:00",
       closes: "16:00",
     },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Sunday",
+      opens: "10:00",
+      closes: "14:00",
+    },
   ],
-  priceRange: "$$",
+  priceRange: business.priceTier,
   aggregateRating: {
     "@type": "AggregateRating",
-    ratingValue: "4.9",
-    reviewCount: "200",
+    ratingValue: business.yelpRating,
+    reviewCount: business.yelpReviews,
   },
-  sameAs: [
-    "https://facebook.com/premierautodetailing",
-    "https://instagram.com/premierautodetailing",
-    "https://x.com/premierdetail",
-    "https://youtube.com/@premierautodetailing",
-  ],
+  sameAs: socialLinks.map((s) => s.url),
 };
 
 export default function RootLayout({
@@ -127,7 +132,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Structured data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

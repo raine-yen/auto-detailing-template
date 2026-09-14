@@ -49,8 +49,7 @@ export default function Reviews() {
             What Our Customers Say
           </h2>
           <p className="mx-auto max-w-2xl text-gray-500 md:text-lg">
-            Don't take our word for it — hear from the car owners who trust
-            Premier with their vehicles.
+            Don't take our word for it — hear from the Livermore car owners who trust Andrew with their vehicles.
           </p>
         </div>
 

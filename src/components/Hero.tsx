@@ -10,6 +10,12 @@ const PhoneIcon = () => (
   </svg>
 );
 
+const StarIcon = () => (
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a053" stroke="none">
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26" />
+  </svg>
+);
+
 export default function Hero() {
   const ref = useInView({ threshold: 0.1 });
 
@@ -31,25 +37,24 @@ export default function Hero() {
       {/* Content */}
       <div ref={ref} className="relative mx-auto max-w-7xl px-4 py-20 md:py-32 lg:py-40">
         <div className="max-w-3xl">
-          {/* Badge */}
+          {/* Yelp Badge */}
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-sm text-gold">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a053" stroke="none">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26" />
-            </svg>
-            Premium Auto Detailing in Los Angeles
+            <StarIcon />
+            <StarIcon />
+            <StarIcon />
+            <StarIcon />
+            <StarIcon />
+            <span className="ml-1">{business.yelpRating}★ on Yelp — {business.yelpReviews} Reviews</span>
           </div>
 
           {/* Headline */}
           <h1 className="mb-6 text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
-            Your Car Deserves the{" "}
-            <span className="text-[#d4a053]">Shine</span> It Deserved
+            {business.tagline}
           </h1>
 
           {/* Subheadline */}
           <p className="mb-10 max-w-xl text-lg leading-relaxed text-gray-300 md:text-xl">
-            Expert detailing services that transform your vehicle inside and out.
-            From a quick exterior wash to ceramic coating protection — we bring
-            showroom-quality results to every job.
+            Livermore's top-rated mobile auto detailing. Andrew comes to your driveway with everything he needs — including his own water. No waiting in lines, no driving to a shop.
           </p>
 
           {/* CTAs */}
@@ -62,10 +67,10 @@ export default function Hero() {
                 document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
               }}
             >
-              Get Free Quote
+              Book Your Detail
             </a>
             <a
-              href="tel:+18005553328"
+              href={`tel:${business.phoneLink}`}
               className="btn-secondary"
             >
               <span className="mr-2"><PhoneIcon /></span>
@@ -77,23 +82,23 @@ export default function Hero() {
           <div className="mt-12 flex flex-wrap items-center gap-6 text-sm text-gray-400">
             <span className="flex items-center gap-1.5">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              </svg>
-              Licensed & Insured
-            </span>
-            <span className="flex items-center gap-1.5">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
-              Satisfaction Guaranteed
+              We Bring Our Own Water
             </span>
             <span className="flex items-center gap-1.5">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10" />
                 <polyline points="12 6 12 12 16 14" />
               </svg>
-              Same-Day Service Available
+              Same-Day Service
+            </span>
+            <span className="flex items-center gap-1.5">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              Family-Owned & Trusted
             </span>
           </div>
         </div>

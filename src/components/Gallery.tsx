@@ -2,102 +2,76 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useInView } from "@/lib/animations";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 
-// Gallery data — each entry represents a before/after pair
+// Gallery data — before/after pairs with real Unsplash images
 const galleryItems = [
   {
     id: 1,
-    title: "Paint Correction",
-    description: "Multi-stage polish removing swirls and scratches",
+    title: "Full Detail — Sedan",
+    description: "Complete interior & exterior transformation",
+    before: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=500&fit=crop&q=80&auto=format&brightness=-15&saturation=-20",
+    after: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=500&fit=crop&q=80",
   },
   {
     id: 2,
     title: "Interior Deep Clean",
-    description: "Full shampoo and conditioning of leather surfaces",
+    description: "Full shampoo and leather conditioning",
+    before: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop&q=80&auto=format&brightness=-10&saturation=-30&contrast=+10",
+    after: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop&q=80",
   },
   {
     id: 3,
-    title: "Ceramic Coating",
-    description: "Mirror-like finish with hydrophobic protection",
+    title: "Ceramic Coating Prep",
+    description: "Paint correction and surface prep work",
+    before: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=500&fit=crop&q=80&auto=format&brightness=-15&saturation=-25",
+    after: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=500&fit=crop&q=80",
   },
   {
     id: 4,
-    title: "Engine Bay Detail",
-    description: "Degrease, dress, and protect engine components",
+    title: "Exterior Restoration",
+    description: "Wash, clay, polish, and sealant",
+    before: "https://images.unsplash.com/photo-1542362567-b07e543b866c?w=800&h=500&fit=crop&q=80&auto=format&brightness=-10&saturation=-20&contrast=+10",
+    after: "https://images.unsplash.com/photo-1542362567-b07e543b866c?w=800&h=500&fit=crop&q=80",
   },
   {
     id: 5,
-    title: "Exterior Restoration",
-    description: "Wash, clay, polish, and sealant for faded paint",
+    title: "SUV Detail — Truck",
+    description: "Full detail on a work truck",
+    before: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&h=500&fit=crop&q=80&auto=format&brightness=-10&saturation=-20",
+    after: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&h=500&fit=crop&q=80",
   },
   {
     id: 6,
-    title: "Wheel & Tire Detail",
-    description: "Brake dust removal and tire dressing application",
+    title: "Wash & Wax Special",
+    description: "Quick exterior refresh — wash, clay, wax",
+    before: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&h=500&fit=crop&q=80&auto=format&brightness=-10&saturation=-25&contrast=+5",
+    after: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&h=500&fit=crop&q=80",
   },
 ];
-
-// Placeholder SVGs — simulating before (dirty) and after (clean) states
-function BeforeImage({ className }: { className?: string }) {
-  return (
-    <div className={`w-full ${className}`}>
-      <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <rect width="400" height="260" fill="#3d3529" />
-        {/* Dirty car silhouette */}
-        <ellipse cx="200" cy="160" rx="140" ry="60" fill="#5a4d3c" opacity="0.5" />
-        <path d="M120 140 Q140 90 200 85 Q260 90 280 140 Z" fill="#6b5e4d" />
-        <rect x="160" y="95" width="80" height="30" rx="4" fill="#4a3f30" />
-        {/* Dirt spots */}
-        {[100, 150, 200, 250, 300, 120, 180, 230, 280, 160].map((cx, i) => (
-          <circle key={i} cx={cx} cy={100 + (i % 3) * 30} r={2 + (i % 3) * 2} fill="#8a7b65" opacity="0.4" />
-        ))}
-        <text x="200" y="240" textAnchor="middle" fill="#a0926b" fontSize="12" fontFamily="sans-serif">Before</text>
-      </svg>
-    </div>
-  );
-}
-
-function AfterImage({ className }: { className?: string }) {
-  return (
-    <div className={`w-full ${className}`}>
-      <svg viewBox="0 0 400 260" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
-        <rect width="400" height="260" fill="#1e293b" />
-        {/* Clean car silhouette */}
-        <ellipse cx="200" cy="160" rx="140" ry="60" fill="#3b82f6" opacity="0.15" />
-        <path d="M120 140 Q140 90 200 85 Q260 90 280 140 Z" fill="#60a5fa" opacity="0.6" />
-        <rect x="160" y="95" width="80" height="30" rx="4" fill="#3b82f6" opacity="0.3" />
-        {/* Shine lines */}
-        {[140, 180, 220, 260].map((cx, i) => (
-          <line key={i} x1={cx} y1="90" x2={cx} y2="140" stroke="white" strokeWidth="1" opacity={0.1 - i * 0.015} />
-        ))}
-        <text x="200" y="240" textAnchor="middle" fill="#60a5fa" fontSize="12" fontFamily="sans-serif">After</text>
-      </svg>
-    </div>
-  );
-}
 
 export default function Gallery() {
   const ref = useInView({ threshold: 0.1 });
   const [activeItem, setActiveItem] = useState(0);
   const [sliderPos, setSliderPos] = useState(50);
+  const [isLoading, setIsLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
 
-  // Handle slider drag
-  const handleMove = useCallback(
-    (clientX: number) => {
-      const container = containerRef.current;
-      if (!container) return;
-      const rect = container.getBoundingClientRect();
-      const pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
-      setSliderPos(pct);
-    },
-    [],
-  );
+  const handleMove = useCallback((clientX: number) => {
+    const container = containerRef.current;
+    if (!container) return;
+    const rect = container.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+    setSliderPos(pct);
+  }, []);
 
-  const handleMouseDown = useCallback(() => { isDragging.current = true; }, []);
-  const handleMouseUp = useCallback(() => { isDragging.current = false; }, []);
+  const handleMouseDown = useCallback(() => {
+    isDragging.current = true;
+  }, []);
+
+  const handleMouseUp = useCallback(() => {
+    isDragging.current = false;
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -118,10 +92,15 @@ export default function Gallery() {
     };
   }, [handleMove, handleMouseUp]);
 
+  // Reset loading when switching items
+  useEffect(() => {
+    setIsLoading(true);
+  }, [activeItem]);
+
   const item = galleryItems[activeItem];
 
   return (
-    <section id="gallery" className={""}>
+    <section id="gallery" className="">
       <div className="mx-auto max-w-7xl px-4 py-16 md:py-24">
         {/* Section header */}
         <div ref={ref} className="mb-12 text-center md:mb-16">
@@ -132,22 +111,32 @@ export default function Gallery() {
             See the Difference
           </h2>
           <p className="mx-auto max-w-2xl text-gray-500 md:text-lg">
-            Drag the slider to compare before and after results from our
-            detailing work.
+            Drag the slider to compare before and after results. Every vehicle gets the same care — from sedans to SUVs, trucks, boats, and motorcycles.
           </p>
         </div>
 
         {/* Before/After slider */}
         <div
           ref={containerRef}
-          className="ba-slider mb-8 cursor-col-resize"
-          style={{ height: "360px" }}
+          className="ba-slider mb-8 cursor-col-resize select-none"
+          style={{ height: "400px" }}
           onMouseDown={handleMouseDown}
           onTouchStart={handleMouseDown}
         >
           {/* After image (bottom layer — always visible) */}
           <div className="ba-slider-image">
-            <AfterImage />
+            {isLoading && (
+              <div className="flex h-full items-center justify-center bg-gray-100">
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#d4a053] border-t-transparent" />
+              </div>
+            )}
+            <img
+              src={item.after}
+              alt="After — Clean"
+              className="h-full w-full object-cover"
+              onLoad={() => setIsLoading(false)}
+              draggable={false}
+            />
           </div>
 
           {/* Before image (top layer — clipped) */}
@@ -155,12 +144,17 @@ export default function Gallery() {
             className="ba-slider-image"
             style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
           >
-            <BeforeImage />
+            <img
+              src={item.before}
+              alt="Before — Dirty"
+              className="h-full w-full object-cover"
+              draggable={false}
+            />
           </div>
 
           {/* Slider handle */}
           <div
-            className="absolute top-0 bottom-0 w-1 bg-white shadow-[0_0_12px_rgba(0,0,0,0.5)]"
+            className="absolute top-0 bottom-0 z-10 w-1 cursor-col-resize bg-white shadow-[0_0_12px_rgba(0,0,0,0.5)]"
             style={{ left: `${sliderPos}%` }}
           >
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-lg">
@@ -174,10 +168,10 @@ export default function Gallery() {
           </div>
 
           {/* Labels */}
-          <div className="absolute left-4 top-4 rounded bg-charcoal/70 px-3 py-1 text-xs font-semibold text-white">
+          <div className="absolute left-4 top-4 z-10 rounded bg-charcoal/70 px-3 py-1 text-xs font-semibold text-white">
             Before
           </div>
-          <div className="absolute right-4 top-4 rounded bg-gold/80 px-3 py-1 text-xs font-semibold text-white">
+          <div className="absolute right-4 top-4 z-10 rounded bg-[#d4a053]/80 px-3 py-1 text-xs font-semibold text-white">
             After
           </div>
         </div>

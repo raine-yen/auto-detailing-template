@@ -53,7 +53,7 @@ export default function Header() {
             />
             <circle cx="16" cy="12" r="2" fill="#d4a053" />
           </svg>
-          <span>Premier <span className="logo-accent">Auto Detailing</span></span>
+          <span>Pepe's <span className="logo-accent">Mobile Detail</span></span>
         </a>
 
         {/* Desktop Nav */}

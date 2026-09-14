@@ -17,22 +17,12 @@ const SparkleIcon = () => (
   </svg>
 );
 
-// Price card accent bar positions
-const accentColors = [
-  "bg-gradient-to-t from-gold/20",
-  "bg-gradient-to-t from-gold/10",
-  "bg-gradient-to-t from-gold/30", // "Complete Detail" is the most popular
-  "bg-gradient-to-t from-gold/10",
-  "bg-gradient-to-t from-gold/10",
-  "bg-gradient-to-t from-gold/10",
-];
-
 export default function Services() {
   const ref = useInView({ threshold: 0.1 });
-  const popularIndex = 2; // Complete Detail
+  const popularIndex = services.findIndex((s) => s.popular);
 
   return (
-    <section id="services" className={""}>
+    <section id="services" className="">
       <div className="mx-auto max-w-7xl px-4 py-16 md:py-24">
         {/* Section header */}
         <div ref={ref} className="mb-12 text-center md:mb-16">
@@ -43,84 +33,93 @@ export default function Services() {
             Professional Detailing Services
           </h2>
           <p className="mx-auto max-w-2xl text-gray-500 md:text-lg">
-            From a quick refresh to a full restoration, we have a package
-            that's perfect for your vehicle and budget.
+            From a quick wash & wax to a full restoration — honest pricing, no surprises. Andrew comes to you.
           </p>
         </div>
 
         {/* Service grid */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, i) => (
-            <div
-              key={service.name}
-              className={`service-card relative flex flex-col ${
-                i === popularIndex
-                  ? "border-2 border-[#d4a053] shadow-md"
-                  : ""
-              }`}
-            >
-              {/* Popular badge */}
-              {i === popularIndex && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1 rounded-full bg-[#d4a053] px-3 py-1 text-xs font-semibold text-white">
-                  <SparkleIcon /> Most Popular
-                </div>
-              )}
+          {services.map((service, i) => {
+            const isPopular = i === popularIndex;
+            const isComingSoon = (service as any).comingSoon;
+            return (
+              <div
+                key={service.name}
+                className={`service-card relative flex flex-col ${
+                  isPopular
+                    ? "border-2 border-[#d4a053] shadow-md"
+                    : ""
+                } ${isComingSoon ? "opacity-70" : ""}`}
+              >
+                {/* Popular badge */}
+                {isPopular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 flex items-center gap-1 rounded-full bg-[#d4a053] px-3 py-1 text-xs font-semibold text-white">
+                    <SparkleIcon /> Most Popular
+                  </div>
+                )}
 
-              {/* Header */}
-              <div className={`${accentColors[i]} absolute inset-0 rounded-xl`} />
+                {/* Coming soon badge */}
+                {isComingSoon && (
+                  <div className="absolute -top-3 right-3 rounded-full bg-gray-400 px-3 py-1 text-xs font-semibold text-white">
+                    Coming Soon
+                  </div>
+                )}
 
-              <div className="relative">
-                <h3 className="mb-2 text-xl font-bold text-charcoal">
-                  {service.name}
-                </h3>
+                {/* Header */}
+                <div className="absolute inset-0 bg-gradient-to-t from-gold/10 rounded-xl" />
 
-                {/* Price */}
-                <p className="mb-3">
-                  <span
-                    className={`text-3xl font-bold ${
-                      i === popularIndex ? "text-[#d4a053]" : "text-charcoal"
+                <div className="relative">
+                  <h3 className="mb-2 text-xl font-bold text-charcoal">
+                    {service.name}
+                    {isComingSoon && <span className="ml-2 text-xs font-normal text-gray-400">(coming soon)</span>}
+                  </h3>
+
+                  {/* Price */}
+                  <p className="mb-3">
+                    <span
+                      className={`text-3xl font-bold ${
+                        isPopular ? "text-[#d4a053]" : "text-charcoal"
+                      }`}
+                    >
+                      {service.price}
+                    </span>
+                    <span className="text-gray-400"> starting</span>
+                  </p>
+
+                  {/* Description */}
+                  <p className="mb-5 text-sm leading-relaxed text-gray-500">
+                    {service.description}
+                  </p>
+
+                  {/* Features */}
+                  <ul className="mb-6 flex flex-col gap-2">
+                    {service.features.map((feature) => (
+                      <li key={feature} className="flex items-center gap-2 text-sm text-gray-600">
+                        <CheckIcon />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA */}
+                  <a
+                    href="#contact"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+                    }}
+                    className={`mt-auto block rounded-lg px-4 py-2.5 text-center text-sm font-semibold transition-colors duration-200 ${
+                      isPopular
+                        ? "bg-[#d4a053] text-white hover:bg-[#c4913f]"
+                        : "bg-gray-50 text-charcoal hover:bg-gray-100"
                     }`}
                   >
-                    {service.price}
-                  </span>
-                  {service.price !== "Custom" && (
-                    <span className="text-gray-400"> starting</span>
-                  )}
-                </p>
-
-                {/* Description */}
-                <p className="mb-5 text-sm leading-relaxed text-gray-500">
-                  {service.description}
-                </p>
-
-                {/* Features */}
-                <ul className="mb-6 flex flex-col gap-2">
-                  {service.features.map((feature) => (
-                    <li key={feature} className="flex items-center gap-2 text-sm text-gray-600">
-                      <CheckIcon />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <a
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  className={`mt-auto block rounded-lg px-4 py-2.5 text-center text-sm font-semibold transition-colors duration-200 ${
-                    i === popularIndex
-                      ? "bg-[#d4a053] text-white hover:bg-[#c4913f]"
-                      : "bg-gray-50 text-charcoal hover:bg-gray-100"
-                  }`}
-                >
-                  Book {service.name}
-                </a>
+                    {isComingSoon ? "Get Notified" : `Book ${service.name}`}
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

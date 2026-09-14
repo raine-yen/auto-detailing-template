@@ -3,42 +3,44 @@
 import { useInView } from "@/lib/animations";
 import { about } from "@/lib/data";
 
-// Shield icon (Licensed & Insured)
-const ShieldIcon = () => (
+// Star icon (5.0★ Rating)
+const StarIcon = () => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26" fill="#d4a053" stroke="none" />
   </svg>
 );
 
-// Award icon (Experience)
-const AwardIcon = () => (
+// Truck icon (Mobile Service)
+const TruckIcon = () => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="8" r="7" />
-    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+    <path d="M10 17h4V5H2v12h3" />
+    <path d="M20 17h2v-3.34a4 4 0 0 0-1.17-2.83L19 9h-5v8h1" />
+    <circle cx="7.5" cy="17.5" r="2.5" />
+    <circle cx="17.5" cy="17.5" r="2.5" />
   </svg>
 );
 
-// Leaf icon (Eco-Friendly)
-const LeafIcon = () => (
+// Heart icon (Family-Oriented)
+const HeartIcon = () => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 2 8 0 5.5-4.78 10-10 10Z" />
-    <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
   </svg>
 );
 
-// CheckCircle icon (Satisfaction)
-const CheckCircleIcon = () => (
+// Layers icon (All Vehicles)
+const LayersIcon = () => (
   <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-    <polyline points="22 4 12 14.01 9 11.01" />
+    <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z" />
+    <path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65" />
+    <path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65" />
   </svg>
 );
 
-const iconMap = {
-  "Licensed & Insured": <ShieldIcon />,
-  "5+ Years Experience": <AwardIcon />,
-  "Eco-Friendly Products": <LeafIcon />,
-  "Satisfaction Guaranteed": <CheckCircleIcon />,
+const iconMap: Record<string, React.ReactNode> = {
+  "5.0★ on Yelp — 117 Reviews": <StarIcon />,
+  "We Come to You": <TruckIcon />,
+  "Family-Oriented & Honest": <HeartIcon />,
+  "All Vehicles Welcome": <LayersIcon />,
 };
 
 export default function About() {
@@ -80,7 +82,7 @@ export default function About() {
           {about.valueProps.map((prop) => (
             <div key={prop.title} className="card text-center">
               <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-gold/10">
-                {iconMap[prop.title as keyof typeof iconMap]}
+                {iconMap[prop.title] || <StarIcon />}
               </div>
               <h3 className="mb-2 text-lg font-bold text-charcoal">
                 {prop.title}

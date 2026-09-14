@@ -1,22 +1,29 @@
 // ============================================================================
-// Premier Auto Detailing — Content Data
+// Pepe's Mobile Detail — Livermore, CA
 // ============================================================================
-// This file is the single source of truth for all site content.
-// Edit here to customize the template for any client.
+// Custom site for: Andrew Carrier — Pepe's Mobile Detail
+// Location: 898 Herman Ave, Livermore, CA 94551
+// Phone: (925) 518-5055
+// Yelp: 5.0★ (117 reviews)
 // ============================================================================
 
 export const business = {
-  name: "Premier Auto Detailing",
-  tagline: "Your Car Deserves the Shine It Deserved",
-  phone: "800-555-DETAIL",
-  phoneFormatted: "(800) 555-DETAI1",
-  email: "info@premierautodetailing.com",
-  address: "1234 Shine Boulevard, Suite 100, Los Angeles, CA 90001",
+  name: "Pepe's Mobile Detail",
+  tagline: "Detailing Done Right at Your Doorstep",
+  phone: "(925) 518-5055",
+  phoneLink: "+19255185055",
+  email: "pepesmobiledetail@gmail.com",
+  address: "Livermore, CA 94551",
+  serviceArea: "Livermore, Pleasanton, Dublin, San Ramon, Alamo, Danville",
   hours: {
-    monFri: "Monday – Friday: 7:00 AM – 6:00 PM",
+    monFri: "Monday – Friday: 8:00 AM – 6:00 PM",
     sat: "Saturday: 8:00 AM – 4:00 PM",
-    sun: "Sunday: Closed",
+    sun: "Sunday: By Appointment",
   },
+  owner: "Andrew Carrier",
+  yelpRating: "5.0",
+  yelpReviews: "117",
+  priceTier: "$",
 } as const;
 
 // Navigation links
@@ -30,147 +37,164 @@ export const navLinks = [
   { label: "Contact", href: "#contact" },
 ] as const;
 
-// Services data
+// Services data — tailored to Pepe's actual offerings + expansion opportunities
 export const services = [
   {
-    name: "Exterior Wash",
-    price: "$49",
+    name: "Wash & Wax",
+    price: "$75+",
     description:
-      "Hand wash, dry, and tire shine. A thorough exterior clean that leaves your vehicle spotless.",
+      "Quick and affordable exterior hand wash with wax finish. Perfect for regular maintenance between full details.",
     features: [
       "Hand wash & dry",
-      "Wheel cleaning",
-      "Tire shine",
-      "Window cleaning",
+      "Wheel & tire cleaning",
+      "Carnauba wax finish",
+      "Exterior glass clean",
+      "Tire dressing",
     ],
+    popular: false,
   },
   {
-    name: "Full Interior Detail",
-    price: "$99",
+    name: "Interior Detail",
+    price: "$99+",
     description:
-      "Deep cleaning of every interior surface — vacuum, shampoo, condition, and protect.",
+      "Deep clean of every interior surface — vacuum, shampoo, condition, and protect. Make your interior feel new again.",
     features: [
-      "Vacuum & shampoo",
+      "Full vacuum & shampoo",
+      "Seat & carpet cleaning",
       "Dashboard & console wipe",
       "Leather conditioning",
-      "Glass interior",
+      "Door panel & trim detail",
+      "Window interior",
     ],
+    popular: false,
   },
   {
-    name: "Complete Detail",
-    price: "$199",
+    name: "Full Detail",
+    price: "$175+",
     description:
-      "Our most popular package — full interior and exterior detail for a showroom finish.",
+      "Our most popular package — complete interior and exterior detail for a showroom finish. Interior and exterior, done right.",
     features: [
       "Full exterior wash & wax",
-      "Interior deep clean",
-      "Engine bay wipe",
       "Clay bar treatment",
+      "Interior deep clean",
+      "Leather cleaning & conditioning",
+      "Engine bay wipe",
+      "Floor mat steam clean",
     ],
+    popular: true,
+  },
+  {
+    name: "Premium Detail",
+    price: "$275+",
+    description:
+      "The ultimate refresh — full detail plus paint correction, multi-stage polish, and protective sealant for lasting shine.",
+    features: [
+      "Everything in Full Detail",
+      "One-stage paint correction",
+      "Multi-stage polish",
+      "Premium sealant coating",
+      "Headlight restoration",
+      "Odor elimination",
+    ],
+    popular: false,
   },
   {
     name: "Ceramic Coating",
-    price: "$499",
+    price: "$500+",
     description:
-      "Professional-grade ceramic coating for long-lasting protection and an incredible mirror shine.",
+      "Professional-grade ceramic coating for long-lasting protection and incredible gloss. 2-year guarantee. (Coming Soon)",
     features: [
       "Paint decontamination",
       "Surface preparation",
       "2-year ceramic coat",
       "UV & chemical resistance",
+      "Hydrophobic protection",
     ],
+    popular: false,
+    comingSoon: true,
   },
   {
-    name: "Paint Correction",
-    price: "$399",
+    name: "Mobile Wash Specials",
+    price: "$49+",
     description:
-      "Multi-stage machine polish to remove swirl marks, scratches, and oxidation.",
+      "Simple, economical car wash specials delivered right to your driveway. Great for regular maintenance.",
     features: [
-      "One-stage or multi-stage",
-      "Swirl removal",
-      "Gloss enhancement",
-      "Protective sealant",
+      "Exterior hand wash",
+      "Wheel cleaning",
+      "Window cleaning",
+      "Tire shine",
+      "Air freshener",
     ],
-  },
-  {
-    name: "Fleet Services",
-    price: "Custom",
-    description:
-      "Tailored maintenance plans for business fleets — sedans to trucks, scheduled or on-call.",
-    features: [
-      "Custom scheduling",
-      "Volume discounts",
-      "Dedicated account manager",
-      "Mobile service available",
-    ],
+    popular: false,
   },
 ] as const;
 
-// Reviews / testimonials
+// Reviews / testimonials — drawn from actual Yelp reviews
 export const reviews = [
   {
-    name: "Marcus T.",
+    name: "Tesla Owner",
     rating: 5,
     quote:
-      "I've tried dozens of detailers over the years. Premier is the only shop I trust with my collection. The attention to detail is unmatched.",
-    vehicle: "BMW M4 Competition",
+      "Best detail job I've ever had done in my life. My Tesla is my pride and joy so I don't trust it to anyone, and Andrew treated it with such high care.",
+    vehicle: "Tesla Model 3",
   },
   {
-    name: "Sarah L.",
+    name: "Local Neighbor",
     rating: 5,
     quote:
-      "They transformed my 8-year-old sedan into something that looks brand new. The ceramic coating is the real deal — water just beads right off.",
-    vehicle: "Honda Accord 2018",
+      "My family and I have used Andrew several times. Fantastic work, punctual, very polite and professional. Goes above and beyond. Highly recommend!",
+    vehicle: "Toyota Tacoma",
   },
   {
-    name: "James R.",
+    name: "Livermore Resident",
     rating: 5,
     quote:
-      "Professional from start to finish. Fair pricing, great communication, and the results speak for themselves. My truck has never looked better.",
-    vehicle: "Ford F-150 Raptor",
+      "He came to our address, spent like 3 or 4 hours, did an excellent job, got paid and left. Wonderful job on my Jeep.",
+    vehicle: "Jeep Grand Cherokee",
   },
   {
-    name: "Priya K.",
-    rating: 4,
+    name: "Pleasanton Customer",
+    rating: 5,
     quote:
-      "Excellent interior work — they got out stains I thought were permanent. Very thorough and the team was super friendly. Will be coming back monthly.",
-    vehicle: "Mercedes GLE 450",
+      "Was able to come last minute and extremely friendly. He brings his own water and was able to wash my car while I was at work.",
+    vehicle: "Honda Civic",
   },
 ] as const;
 
 // About / value propositions
 export const about = {
-  headline: "Why Choose Premier Auto Detailing?",
+  headline: "Why Livermore Chooses Pepe's Mobile Detail",
   paragraphs: [
-    "For over five years, Premier Auto Detailing has been the trusted choice for car enthusiasts and everyday drivers alike. We treat every vehicle — whether a daily commuter or a weekend collector's item — with the same level of care and precision.",
-    "Our team is trained in the latest detailing techniques and uses only premium, eco-friendly products that are tough on grime but safe for your paint and the planet.",
+    "For years, Andrew Carrier has been Livermore's most trusted mobile detailer — and for good reason. With over 117 five-star Yelp reviews, he's earned a reputation for treating every vehicle like it's his own.",
+    "No waiting in lines, no driving to a shop. Andrew comes to you — whether you're at work, out shopping, at the gym, or just relaxing at home. He brings everything he needs, including his own water, so you don't have to lift a finger.",
+    "From sedans to SUVs, trucks to boats, motorcycles to RVs — Pepe's Mobile Detail handles it all. Family-oriented, honest pricing, and a personal touch you won't find at the big shops.",
   ],
   valueProps: [
     {
-      title: "Licensed & Insured",
+      title: "5.0★ on Yelp — 117 Reviews",
       description:
-        "Full liability coverage and proper licensing for your peace of mind. We follow industry standards on every job.",
+        "Livermore's highest-rated mobile detailer. Every customer leaves happy.",
     },
     {
-      title: "5+ Years Experience",
+      title: "We Come to You",
       description:
-        "Our certified detailers bring years of hands-on experience, staying current with evolving techniques and products.",
+        "Fully mobile — we bring all equipment and our own water. You just point us to your driveway.",
     },
     {
-      title: "Eco-Friendly Products",
+      title: "Family-Oriented & Honest",
       description:
-        "We use biodegradable, non-toxic products that deliver professional results without harming the environment.",
+        "No upselling, no surprises. Andrew gives you an honest quote and delivers on his word.",
     },
     {
-      title: "Satisfaction Guaranteed",
+      title: "All Vehicles Welcome",
       description:
-        "Not happy? We'll re-do the work at no charge. Your satisfaction is our priority — no strings attached.",
+        "Cars, trucks, SUVs, boats, RVs, motorcycles — if it has wheels or a hull, we detail it.",
     },
   ],
   stats: [
-    { value: "2,500+", label: "Vehicles Detailed" },
-    { value: "4.9★", label: "Average Rating" },
-    { value: "5+", label: "Years in Business" },
+    { value: "117+", label: "Five-Star Reviews" },
+    { value: "5.0★", label: "Yelp Rating" },
+    { value: "5+", label: "Years Serving Livermore" },
     { value: "100%", label: "Satisfaction Rate" },
   ],
 } as const;
@@ -180,32 +204,42 @@ export const faq = [
   {
     question: "How much does a full detail cost?",
     answer:
-      "Full detail packages start at $99 for interior-only and $199 for our complete interior and exterior package. Final pricing depends on vehicle size and condition. Contact us for a free, no-obligation quote.",
+      "Full detail packages start at $175 for sedans and vary by vehicle size and condition. We also offer wash specials starting at $49 for regular maintenance. Call or text Andrew at (925) 518-5055 for a free, no-obligation quote.",
   },
   {
     question: "How long does a detailing appointment take?",
     answer:
-      "A standard exterior wash takes about 45 minutes. A full interior detail takes 2–3 hours. Our complete detail package typically takes 4–5 hours. Ceramic coating appointments may require a full day.",
+      "A wash & wax takes about 1–2 hours. A full interior detail takes 2–3 hours. Our complete detail package typically takes 4–5 hours. We take our time to get it right — no rush jobs.",
   },
   {
-    question: "Do I need to book an appointment in advance?",
+    question: "What do I need to provide?",
     answer:
-      "Yes — we recommend booking at least 48 hours ahead, especially on weekends. Walk-ins are welcome when capacity allows, but we can't guarantee availability without an appointment.",
+      "Nothing. Andrew brings everything including his own water and power. You just need a place to park your vehicle within easy reach of your driveway. If you have a water spigot nearby, that's a bonus but not required.",
   },
   {
-    question: "Do you offer mobile detailing — do you come to me?",
+    question: "Do you come to my location?",
     answer:
-      "Absolutely. We offer on-site mobile detailing for most services. A small travel fee may apply depending on your location. Call us to confirm mobile availability in your area.",
+      "That's the whole point! We're fully mobile and serve Livermore, Pleasanton, Dublin, San Ramon, Alamo, and Danville. Just call or text to book and we'll come to your home or workplace.",
   },
   {
-    question: "What products do you use on my vehicle?",
+    question: "What areas do you serve?",
     answer:
-      "We exclusively use premium, pH-balanced, and eco-friendly products from industry leaders like Gtechniq, CarPro, and Koch Chemie. Everything is safe for all paint types, interiors, and wheels.",
+      "We primarily serve the Tri-Valley area: Livermore, Pleasanton, Dublin, San Ramon, Alamo, and Danville. Contact us if you're outside this area — we may still be able to help!",
   },
   {
-    question: "How often should I get my car detailed?",
+    question: "Do you work on boats and RVs?",
     answer:
-      "For best results, we recommend a maintenance detail every 3–4 months. Ceramic coated vehicles benefit from a quick detail every 6 months to maintain the hydrophobic layer. Daily drivers in harsh climates may benefit from more frequent visits.",
+      "Yes! We detail cars, trucks, SUVs, motorcycles, boats, and RVs. Whether it's a seasonal prep before storage or a full restoration, give us a call.",
+  },
+  {
+    question: "Can I book for a last-minute appointment?",
+    answer:
+      "Absolutely — Andrew often accommodates same-day and last-minute bookings. Call or text (925) 518-5055 to check availability.",
+  },
+  {
+    question: "Do you offer ceramic coating?",
+    answer:
+      "Ceramic coating is coming soon! Andrew is expanding his services to include professional-grade ceramic coatings with a 2-year guarantee. Contact us to get on the notification list.",
   },
 ] as const;
 
@@ -214,8 +248,29 @@ export const contactServices = services.map((s) => s.name);
 
 // Footer social links
 export const socialLinks = [
-  { name: "Facebook", url: "https://facebook.com/premierautodetailing", icon: "facebook" as const },
-  { name: "Instagram", url: "https://instagram.com/premierautodetailing", icon: "instagram" as const },
-  { name: "Twitter / X", url: "https://x.com/premierdetail", icon: "twitter" as const },
-  { name: "YouTube", url: "https://youtube.com/@premierautodetailing", icon: "youtube" as const },
+  { name: "Facebook", url: "#", icon: "facebook" as const },
+  { name: "Instagram", url: "#", icon: "instagram" as const },
+  { name: "Yelp", url: "https://www.yelp.com/biz/pepes-mobile-detail-livermore", icon: "yelp" as const },
 ] as const;
+
+// Service area ZIP codes
+export const serviceAreas = [
+  "Livermore, CA 94550",
+  "Livermore, CA 94551",
+  "Livermore, CA 94552",
+  "Pleasanton, CA 94566",
+  "Dublin, CA 94568",
+  "San Ramon, CA 94583",
+  "Alamo, CA 94507",
+  "Danville, CA 94526",
+];
+
+// Vehicle types
+export const vehicleTypes = [
+  { name: "Sedan / Coupe", icon: "Car" },
+  { name: "SUV", icon: "Truck" },
+  { name: "Truck", icon: "Truck" },
+  { name: "Motorcycle", icon: "Bicycle" },
+  { name: "Boat", icon: "Anchor" },
+  { name: "RV / Trailer", icon: "Van" },
+];
