@@ -3,49 +3,56 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import { useInView } from "@/lib/animations";
 
-// Gallery data — before/after pairs with real Unsplash images
+// Gallery data — each entry uses TWO COMPLETELY DIFFERENT Unsplash photos
+// Before = matte/dull car, After = glossy/shiny car
 const galleryItems = [
   {
     id: 1,
     title: "Full Detail — Sedan",
     description: "Complete interior & exterior transformation",
-    before: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=500&fit=crop&q=80&auto=format&brightness=-15&saturation=-20",
-    after: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=500&fit=crop&q=80",
+    // Different photos: matte gray car vs glossy black car
+    before: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&h=500&fit=crop&q=70&auto=format&saturation=-15&brightness=-5",
+    after: "https://images.unsplash.com/photo-1542362567-b07e543b866c?w=800&h=500&fit=crop&q=85&auto=format&saturation=+10&contrast=+5",
   },
   {
     id: 2,
     title: "Interior Deep Clean",
     description: "Full shampoo and leather conditioning",
-    before: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop&q=80&auto=format&brightness=-10&saturation=-30&contrast=+10",
-    after: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop&q=80",
+    // Interior: dirty fabric vs clean leather
+    before: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?w=800&h=500&fit=crop&q=70&auto=format&saturation=-20&brightness=-10",
+    after: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop&q=85",
   },
   {
     id: 3,
     title: "Ceramic Coating Prep",
     description: "Paint correction and surface prep work",
-    before: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=500&fit=crop&q=80&auto=format&brightness=-15&saturation=-25",
-    after: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800&h=500&fit=crop&q=80",
+    // Dull paint vs mirror finish
+    before: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&h=500&fit=crop&q=70&auto=format&saturation=-20&brightness=-8",
+    after: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=800&h=500&fit=crop&q=85&auto=format&saturation=+15&contrast=+5",
   },
   {
     id: 4,
     title: "Exterior Restoration",
     description: "Wash, clay, polish, and sealant",
-    before: "https://images.unsplash.com/photo-1542362567-b07e543b866c?w=800&h=500&fit=crop&q=80&auto=format&brightness=-10&saturation=-20&contrast=+10",
-    after: "https://images.unsplash.com/photo-1542362567-b07e543b866c?w=800&h=500&fit=crop&q=80",
+    // Faded/dusty vs clean/shiny
+    before: "https://images.unsplash.com/photo-1502877338535-766e1452684a?w=800&h=500&fit=crop&q=70&auto=format&saturation=-20&brightness=-10",
+    after: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?w=800&h=500&fit=crop&q=85&auto=format&saturation=+10",
   },
   {
     id: 5,
     title: "SUV Detail — Truck",
     description: "Full detail on a work truck",
-    before: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&h=500&fit=crop&q=80&auto=format&brightness=-10&saturation=-20",
-    after: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=800&h=500&fit=crop&q=80",
+    // Muddy vs clean truck
+    before: "https://images.unsplash.com/photo-1519641471654-76ce02073e30?w=800&h=500&fit=crop&q=70&auto=format&saturation=-25&brightness=-10",
+    after: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&h=500&fit=crop&q=85",
   },
   {
     id: 6,
     title: "Wash & Wax Special",
     description: "Quick exterior refresh — wash, clay, wax",
-    before: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&h=500&fit=crop&q=80&auto=format&brightness=-10&saturation=-25&contrast=+5",
-    after: "https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=800&h=500&fit=crop&q=80",
+    // Dull blue vs shiny blue
+    before: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&h=500&fit=crop&q=70&auto=format&saturation=-15&brightness=-5",
+    after: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=500&fit=crop&q=85&auto=format&saturation=+10",
   },
 ];
 
@@ -53,7 +60,9 @@ export default function Gallery() {
   const ref = useInView({ threshold: 0.1 });
   const [activeItem, setActiveItem] = useState(0);
   const [sliderPos, setSliderPos] = useState(50);
-  const [isLoading, setIsLoading] = useState(true);
+  const [afterLoaded, setAfterLoaded] = useState(true);
+  const [beforeLoaded, setBeforeLoaded] = useState(true);
+  const [allLoaded, setAllLoaded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
 
@@ -92,12 +101,22 @@ export default function Gallery() {
     };
   }, [handleMove, handleMouseUp]);
 
-  // Reset loading when switching items
+  // Track loading per item
   useEffect(() => {
-    setIsLoading(true);
+    setAfterLoaded(false);
+    setBeforeLoaded(false);
   }, [activeItem]);
 
   const item = galleryItems[activeItem];
+
+  // Preload all images for next item when switching
+  const preloadNext = (index: number) => {
+    const nextItem = galleryItems[index];
+    new Image().src = nextItem.before;
+    new Image().src = nextItem.after;
+    setActiveItem(index);
+    setSliderPos(50);
+  };
 
   return (
     <section id="gallery" className="">
@@ -125,7 +144,7 @@ export default function Gallery() {
         >
           {/* After image (bottom layer — always visible) */}
           <div className="ba-slider-image">
-            {isLoading && (
+            {!afterLoaded && (
               <div className="flex h-full items-center justify-center bg-gray-100">
                 <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#d4a053] border-t-transparent" />
               </div>
@@ -133,8 +152,11 @@ export default function Gallery() {
             <img
               src={item.after}
               alt="After — Clean"
-              className="h-full w-full object-cover"
-              onLoad={() => setIsLoading(false)}
+              className={`h-full w-full object-cover transition-opacity duration-300 ${afterLoaded ? "opacity-100" : "opacity-0"}`}
+              onLoad={() => {
+                setAfterLoaded(true);
+                if (beforeLoaded) setAllLoaded(true);
+              }}
               draggable={false}
             />
           </div>
@@ -144,10 +166,19 @@ export default function Gallery() {
             className="ba-slider-image"
             style={{ clipPath: `inset(0 ${100 - sliderPos}% 0 0)` }}
           >
+            {!beforeLoaded && (
+              <div className="flex h-full items-center justify-center bg-gray-200">
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-400 border-t-transparent" />
+              </div>
+            )}
             <img
               src={item.before}
               alt="Before — Dirty"
-              className="h-full w-full object-cover"
+              className={`h-full w-full object-cover transition-opacity duration-300 ${beforeLoaded ? "opacity-100" : "opacity-0"}`}
+              onLoad={() => {
+                setBeforeLoaded(true);
+                if (afterLoaded) setAllLoaded(true);
+              }}
               draggable={false}
             />
           </div>
@@ -176,15 +207,12 @@ export default function Gallery() {
           </div>
         </div>
 
-        {/* Item selector */}
+        {/* Item selector — with preloading */}
         <div className="flex flex-wrap justify-center gap-3">
           {galleryItems.map((gi, i) => (
             <button
               key={gi.id}
-              onClick={() => {
-                setActiveItem(i);
-                setSliderPos(50);
-              }}
+              onClick={() => preloadNext(i)}
               className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
                 i === activeItem
                   ? "bg-[#d4a053] text-white"

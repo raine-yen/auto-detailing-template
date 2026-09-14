@@ -20,7 +20,7 @@ export default function Hero() {
   const ref = useInView({ threshold: 0.1 });
 
   return (
-    <section id="hero" className="relative min-h-[90vh] overflow-hidden">
+    <section id="hero" className="relative min-h-[85vh] overflow-hidden">
       {/* Background — dark gradient simulating a car detail photo */}
       <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-charcoal-light to-charcoal">
         {/* Decorative radial glow */}
@@ -34,31 +34,31 @@ export default function Hero() {
       {/* Overlay */}
       <div className="hero-overlay" />
 
-      {/* Content */}
-      <div ref={ref} className="relative mx-auto max-w-7xl px-4 py-20 md:py-32 lg:py-40">
+      {/* Content — tighter spacing */}
+      <div ref={ref} className="relative mx-auto max-w-7xl px-4 py-16 md:py-24 lg:py-32">
         <div className="max-w-3xl">
-          {/* Yelp Badge */}
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-sm text-gold">
+          {/* Yelp Badge — smaller, less gap */}
+          <div className="mb-4 inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-xs text-gold">
             <StarIcon />
             <StarIcon />
             <StarIcon />
             <StarIcon />
             <StarIcon />
-            <span className="ml-1">{business.yelpRating}★ on Yelp — {business.yelpReviews} Reviews</span>
+            <span className="ml-1 font-medium">{business.yelpRating}★ on Yelp — {business.yelpReviews} Reviews</span>
           </div>
 
-          {/* Headline */}
-          <h1 className="mb-6 text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
+          {/* Headline — tighter spacing below */}
+          <h1 className="mb-4 text-3xl font-bold leading-tight text-white md:text-4xl lg:text-5xl">
             {business.tagline}
           </h1>
 
-          {/* Subheadline */}
-          <p className="mb-10 max-w-xl text-lg leading-relaxed text-gray-300 md:text-xl">
+          {/* Subheadline — smaller, less gap */}
+          <p className="mb-8 max-w-xl text-base leading-relaxed text-gray-300 md:text-lg">
             Livermore's top-rated mobile auto detailing. Andrew comes to your driveway with everything he needs — including his own water. No waiting in lines, no driving to a shop.
           </p>
 
-          {/* CTAs */}
-          <div className="flex flex-col gap-4 sm:flex-row">
+          {/* CTAs — tighter gap */}
+          <div className="flex flex-col gap-3 sm:flex-row">
             <a
               href="#contact"
               className="btn-primary"
@@ -78,24 +78,24 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Trust badges */}
-          <div className="mt-12 flex flex-wrap items-center gap-6 text-sm text-gray-400">
+          {/* Trust badges — smaller, tighter */}
+          <div className="mt-8 flex flex-wrap items-center gap-4 text-xs text-gray-400">
             <span className="flex items-center gap-1.5">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                 <polyline points="22 4 12 14.01 9 11.01" />
               </svg>
               We Bring Our Own Water
             </span>
             <span className="flex items-center gap-1.5">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10" />
                 <polyline points="12 6 12 12 16 14" />
               </svg>
               Same-Day Service
             </span>
             <span className="flex items-center gap-1.5">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d4a053" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               </svg>
               Family-Owned & Trusted
